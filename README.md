@@ -16,22 +16,31 @@ This repo contains utility functions, notebooks, and scripts for analyzing image
 
 ### `Set up & permissions`
 NOTE: be sure that you have the following installed:
- - [awscli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-    - make sure to configure your awscli config profile name is "animl"
- - [virtualenv](https://virtualenv.pypa.io/en/latest/)
+ - [awscli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). Make sure to configure your awscli config profile name is `"animl"`.
 
 - TODO: permissions setup needed for accessing MongoDB, S3, invoking Sagemaker (creating .env file)
 
-#### Clone the repo and set up a virtual env
+Secrets are managed in a `.env` file that you'll need to create manually at the root directory level. Create the file:
+```
+touch .env
+```
+and add the following to it, replacing the credentials in angle brackets with your own creds:
+```
+MONGODB_URL=mongodb+srv://<user>:<password>@cluster0-bqyly.mongodb.net/<database>?retryWrites=true&w=majority
+```
+
+#### Clone the repo and set up a virtual env at the project root level
 
 ```
 $ mkdir animl-analytics
 $ git clone https://github.com/tnc-ca-geo/animl-analytics.git
-$ virtualenv env -p python3
-$ source env/bin/activate
 $ cd animl-analytics
+$ python3 -m venv venv
+$ source env/bin/activate
 $ pip3 install -r requirements.txt
 ```
+
+*Note: if you install additional packages/dependencies, add them to requirements.txt with `pip freeze > requirements.txt`*
 
 ## `Querying the database through the Animl frontend`
 - TODO: explain how to use Custom Filters, point to MongoDB query docs, give some examples/templates
