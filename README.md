@@ -20,15 +20,6 @@ NOTE: be sure that you have the following installed:
 
 - TODO: permissions setup needed for accessing MongoDB, S3, invoking Sagemaker (creating .env file)
 
-Secrets are managed in a `.env` file that you'll need to create manually at the root directory level. Create the file:
-```
-touch .env
-```
-and add the following to it, replacing the credentials in angle brackets with your own creds:
-```
-MONGODB_URL=mongodb+srv://<user>:<password>@cluster0-bqyly.mongodb.net/<database>?retryWrites=true&w=majority
-```
-
 #### Clone the repo and set up a virtual env at the project root level
 
 ```
@@ -39,6 +30,16 @@ $ python3 -m venv venv
 $ source env/bin/activate
 $ pip3 install -r requirements.txt
 ```
+
+Secrets are managed in a `.env` file that you'll need to create manually at the root directory level. Create the file:
+```
+$ touch .env
+```
+and add the following to it, replacing the credentials in angle brackets with your own creds:
+```
+MONGODB_URL=mongodb+srv://<user>:<password>@cluster0-bqyly.mongodb.net/<database>?retryWrites=true&w=majority
+```
+
 
 *Note: if you install additional packages/dependencies, add them to requirements.txt with `pip freeze > requirements.txt`*
 
