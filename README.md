@@ -57,7 +57,7 @@ To download images to your local computer, first export the image record data in
 '''bash
 python utils/download_images.py 
    --coco-file <path/to/coco_export.json> 
-   --output-dir ./outputs
+   --output-dir ./outputs/<subdirectory>
 '''
 
 which will export all of the images in your COCO file to your output directory.
