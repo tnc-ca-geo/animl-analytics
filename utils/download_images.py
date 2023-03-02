@@ -31,6 +31,7 @@ ARCHIVE_BUCKET = 'animl-images-archive-prod'
 
 def download_image_files(img_rcrds, dest_dir, src_bkt=ARCHIVE_BUCKET):
     print(f"Downloading {len(img_rcrds)} image files to {dest_dir}")
+    # TODO: display progress bar
     i = 0
     for rec in img_rcrds:
         key = rec["original_relative_path"]

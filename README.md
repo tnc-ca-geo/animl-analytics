@@ -52,13 +52,13 @@ To export data from Animl, you'll need to have a user account with Project Manag
 
 ## `Document utility functions`
 ### `Downloading images`
-To download images to your local computer, first export the image record data in COCO for Camera Traps format from the Animl user interface (see instructions above). From the root directory of this project, you can then run:
+To download images to your local computer, first export the image record data in COCO for Camera Traps format from the Animl user interface (see instructions above). Next, if it's not already running, start up the virtual env by running `source venv/bin/activate` from the rood directory of this project. Also from the root directory of this project, you can then run:
 
-'''bash
+```bash
 python utils/download_images.py \
    --coco-file <path/to/coco_export.json> \
    --output-dir ./outputs/<subdirectory>
-'''
+```
 
 which will export all of the images in your COCO file to your output directory.
 
