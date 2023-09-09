@@ -16,7 +16,9 @@
 import os
 import json
 import argparse
+from pathlib import Path
 import boto3
+from tqdm import tqdm
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--coco-file", help = "path to coco file")
@@ -27,22 +29,18 @@ os.environ['AWS_PROFILE'] = 'animl'
 os.environ['AWS_DEFAULT_REGION'] = 'us-west-2'
 sess = boto3.Session()
 
-ARCHIVE_BUCKET = 'animl-images-archive-prod'
+SERVING_BUCKET = 'animl-images-serving-dev'
 
-def download_image_files(img_rcrds, dest_dir, src_bkt=ARCHIVE_BUCKET):
+def download_image_files(img_rcrds, dest_dir, src_bkt=SERVING_BUCKET):
     print(f"Downloading {len(img_rcrds)} image files to {dest_dir}")
-    # TODO: display progress bar
     i = 0
-    for rec in img_rcrds:
-        key = rec["original_relative_path"]
-        camera = key.split("/")[0]
-        camera_dir = os.path.join(dest_dir, camera)
-        if not os.path.exists(camera_dir):
-            os.makedirs(camera_dir)
+    for rec in tqdm(img_rcrds):
+        key = rec["serving_bucket_key"]
+        relative_dest = rec["file_name"]
         try: 
-            filename = os.path.join(dest_dir, key)
-            print(filename)
-            boto3.client('s3').download_file(src_bkt, key, filename)
+            full_dest_path = os.path.join(dest_dir, relative_dest)
+            Path(full_dest_path).parents[0].mkdir(parents=True, exist_ok=True)
+            boto3.client('s3').download_file(src_bkt, key, full_dest_path)
             i += 1
         except Exception as e:
             print(f"An exception occurred while downloading {key}:") 

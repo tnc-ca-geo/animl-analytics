@@ -55,12 +55,12 @@ def evaluate_images(input_dir,output_file=None):
     
     with open(output_file,'w') as f:
         
-        f.write('relative_path,date_time_original,file_size,file_too_big,make,model,serial_number,user_comment\n')
+        f.write('absolute_path,date_time_original,file_size,file_too_big,make,model,serial_number,user_comment\n')
         
         # im = images[0]
         for im in tqdm(metadata):
             
-            relative_path = im['SourceFile']
+            absolute_path = im['SourceFile']
 
             if 'EXIF:DateTimeOriginal' in im:
                 date_time_original = im['EXIF:DateTimeOriginal']
@@ -97,7 +97,7 @@ def evaluate_images(input_dir,output_file=None):
             else:
                 user_comment = 'unknown'
 
-            f.write('{},{},{},{},{},{},{},{}\n'.format(relative_path,
+            f.write('{},{},{},{},{},{},{},{}\n'.format(absolute_path,
                    date_time_original,file_size,file_too_big,make,model,serial_number,user_comment))
 
 #%% Command-line driver
