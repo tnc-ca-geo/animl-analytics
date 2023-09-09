@@ -29,7 +29,8 @@ os.environ['AWS_PROFILE'] = 'animl'
 os.environ['AWS_DEFAULT_REGION'] = 'us-west-2'
 sess = boto3.Session()
 
-SERVING_BUCKET = 'animl-images-serving-dev'
+ENV = 'prod'
+SERVING_BUCKET = f'animl-images-serving-{ENV}'
 
 def download_image_files(img_rcrds, dest_dir, src_bkt=SERVING_BUCKET):
     print(f"Downloading {len(img_rcrds)} image files to {dest_dir}")
