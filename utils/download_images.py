@@ -7,9 +7,9 @@
 # directory
 #
 # Usage:
-# 
-# python utils/download_images.py 
-#   --coco-file ~/Downloads/5398d25a25a8b018ce08c9ceb475de36_coco.json 
+#
+# python utils/download_images.py
+#   --coco-file ~/Downloads/5398d25a25a8b018ce08c9ceb475de36_coco.json
 #   --output-dir ./outputs
 ########
 
@@ -38,13 +38,13 @@ def download_image_files(img_rcrds, dest_dir, src_bkt=SERVING_BUCKET):
     for rec in tqdm(img_rcrds):
         key = rec["serving_bucket_key"]
         relative_dest = rec["file_name"]
-        try: 
-            full_dest_path = os.path.join(dest_dir, relative_dest)
+        try:
+            full_dest_path = os.path.join(dest_dir, relative_dest).replace(rec['id'], rec['id'].replace(':', '-'))
             Path(full_dest_path).parents[0].mkdir(parents=True, exist_ok=True)
             boto3.client('s3').download_file(src_bkt, key, full_dest_path)
             i += 1
         except Exception as e:
-            print(f"An exception occurred while downloading {key}:") 
+            print(f"An exception occurred while downloading {key}:")
             print(e)
     print(f'Successfully downloaded {i} images')
 
