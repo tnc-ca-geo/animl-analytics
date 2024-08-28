@@ -8,9 +8,9 @@
 #
 # Usage:
 # 
-# python utils/download_images.py 
-#   --coco-file ~/Downloads/5398d25a25a8b018ce08c9ceb475de36_coco.json 
-#   --output-dir ./outputs
+# python3 utils/download_images.py \
+#   --coco-file ./outputs/elephants.json \
+#   --output-dir ./outputs \
 #   --max-threads 50
 ########
 
