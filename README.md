@@ -19,15 +19,21 @@ NOTE: be sure that you have the following installed:
 
 - TODO: permissions setup needed for accessing MongoDB, S3, invoking Sagemaker (creating .env file)
 
-#### Clone the repo and set up a virtual env at the project root level
+#### Clone the repo and create the conda environment
+
+Dependencies are managed with conda; `environment.yml` is the source of truth.
 
 ```
-$ mkdir animl-analytics
 $ git clone https://github.com/tnc-ca-geo/animl-analytics.git
 $ cd animl-analytics
-$ python3 -m venv env
-$ source env/bin/activate
-$ pip3 install -r requirements.txt
+$ conda env create -f environment.yml
+$ conda activate animl-analytics
+```
+
+If you already have the environment and just need to pick up newly added dependencies:
+
+```
+$ conda env update -n animl-analytics -f environment.yml
 ```
 
 Secrets are managed in a `.env` file that you'll need to create manually at the root directory level. Create the file:
@@ -42,7 +48,7 @@ and add the following to it, replacing the credentials in angle brackets with yo
 MONGODB_URL=mongodb+srv://<user>:<password>@cluster0-bqyly.mongodb.net/<database>?retryWrites=true&w=majority
 ```
 
-_Note: if you install additional packages/dependencies, add them to requirements.txt with `pip freeze > requirements.txt`_
+_Note: if you install additional packages/dependencies, add them to `environment.yml` and re-run `conda env update -n animl-analytics -f environment.yml`._
 
 ## Querying the database through the Animl frontend
 
