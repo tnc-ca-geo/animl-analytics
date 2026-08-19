@@ -143,10 +143,16 @@ def fetch_sagemaker(session, start, end):
 
     queries = []
     for i, name in enumerate(inventory["endpoint_name"].tolist()):
-        for stat, metric in (("Sum", "Invocations"), ("Average", "ModelLatency")):
+        # ModelLatency Sum gives total compute microseconds per day, which is what
+        # apportions the bill; Average is kept only for per-invocation diagnostics.
+        for stat, metric in (
+            ("Sum", "Invocations"),
+            ("Sum", "ModelLatency"),
+            ("Average", "ModelLatency"),
+        ):
             queries.append(
                 {
-                    "labels": {"endpoint_name": name, "metric": metric},
+                    "labels": {"endpoint_name": name, "metric": f"{metric}_{stat}"},
                     "query": {
                         "Id": safe_id("sm", len(queries)),
                         "MetricStat": {
